@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Disease Analysis | Tissite Smart Agriculture</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Analysis Specific Premium Styling */
+        .analysis-hero {
+            height: 45vh;
+            background: linear-gradient(rgba(46, 204, 113, 0.8), rgba(26, 37, 47, 0.9)), 
+                        url('https://images.unsplash.com/photo-1530836361280-881ac3ea97de?auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .analysis-wrapper {
+            max-width: 900px;
+            margin: -120px auto 80px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .analysis-card {
+            background: var(--white);
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+            text-align: center;
+        }
+
+        /* Modern Upload Zone */
+        .upload-zone {
+            border: 3px dashed #e0e6e3;
+            padding: 60px 30px;
+            border-radius: 20px;
+            background: #fafcfb;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .upload-zone:hover {
+            border-color: var(--primary-color);
+            background: #f0fdf4;
+            transform: scale(1.01);
+        }
+
+        .upload-zone i {
+            font-size: 4.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-shadow: 0 5px 15px rgba(46, 204, 113, 0.2);
+        }
+
+        #imagePreview {
+            max-width: 100%;
+            max-height: 450px;
+            margin: 30px auto;
+            display: none;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            border: 5px solid white;
+        }
+
+        /* AI Result Box */
+        .result-panel {
+            display: none;
+            margin-top: 40px;
+            text-align: left;
+            padding: 35px;
+            border-radius: 20px;
+            background: #f8faf9;
+            border-left: 8px solid var(--primary-color);
+            animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .treatment-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+        }
+
+        /* Loader Animation */
+        .ai-loader {
+            display: none;
+            margin: 30px auto;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        @media (max-width: 768px) {
+            .analysis-wrapper { padding: 0 20px; margin-top: -60px; }
+            .analysis-card { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html">
+                    <h2><i class="fas fa-seedling"></i> TISSITE</h2>
+                </a>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="monitor.html">Monitoring</a></li>
+                <li><a href="analysis.html" class="active">Analysis Tool</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+
+            <div class="auth-buttons">
+                <a href="#" class="btn-login">Login</a>
+                <a href="#" class="btn-signup">Join Now</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="analysis-hero">
+        <div class="container">
+            <h1 style="font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800;">Plant Disease Identification</h1>
+            <p style="opacity: 0.9; max-width: 700px; margin: 15px auto;">Upload a high-quality photo of your plant's leaf for instant AI-powered health diagnosis and treatment suggestions.</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="analysis-wrapper">
+            <div class="analysis-card">
+                <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3 style="color: var(--dark-color);">Upload or Capture Leaf Photo</h3>
+                    <p style="color: #7f8c8d; font-size: 0.9rem; margin-top: 5px;">Securely analyzed by Tissite AI Vision Engine</p>
+                    <input type="file" id="fileInput" hidden accept="image/*" onchange="previewImage(event)">
+                </div>
+
+                <img id="imagePreview" alt="Leaf Preview">
+
+                <div style="margin-top: 30px;">
+                    <button class="btn" style="background: var(--primary-color); color: white; width: 100%; font-size: 1.1rem; padding: 1.2rem;" onclick="runAnalysis()">
+                        <i class="fas fa-wand-magic-sparkles" style="margin-right: 10px;"></i> Analyze Now
+                    </button>
+                </div>
+
+                <div class="ai-loader" id="loader">
+                    <center>
+                        <div class="spinner"></div>
+                        <p style="margin-top: 15px; font-weight: 500; color: var(--primary-color);">AI is processing image data...</p>
+                    </center>
+                </div>
+
+                <div class="result-panel" id="resultPanel">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                        <h2 style="color: var(--dark-color);"><i class="fas fa-check-circle" style="color: var(--secondary-color);"></i> Analysis Complete</h2>
+                        <span style="font-size: 0.8rem; background: #e8f5e9; color: var(--secondary-color); padding: 5px 12px; border-radius: 50px; font-weight: 700;">98.4% Confidence</span>
+                    </div>
+                    
+                    <div style="font-size: 1.1rem; line-height: 2;">
+                        <p><strong>Detected Crop:</strong> <span id="cropName" style="color: var(--primary-color);">Corn (Maize)</span></p>
+                        <p><strong>Diagnosis:</strong> <span id="diseaseName" style="color: #e74c3c; font-weight: 800;">Common Rust (Puccinia sorghi)</span></p>
+                    </div>
+
+                    <div class="treatment-card">
+                        <h4 style="color: var(--dark-color); margin-bottom: 12px;"><i class="fas fa-medkit" style="color: var(--primary-color);"></i> Recommended Action:</h4>
+                        <p style="color: #555; font-size: 0.95rem; line-height: 1.7;">Apply <strong>Mancozeb</strong> (2.5g per liter of water) immediately. Ensure uniform coverage on both sides of the leaves. Repeat treatment every 10 days until flowering begins for optimal recovery.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h2 style="color: var(--white); margin-bottom: 20px;"><i class="fas fa-seedling" style="color: var(--primary-color);"></i> TISSITE</h2>
+                    <p>Pioneering the Agricultural Renaissance through cutting-edge IoT and AI technology. Join us in cultivating a better future.</p>
+                    <div style="margin-top: 25px; display: flex; gap: 15px;">
+                        <a href="#" style="font-size: 1.5rem;"><i class="fab fa-facebook-square"></i></a>
+                        <a href="#" style="font-size: 1.5rem;"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" style="font-size: 1.5rem;"><i class="fab fa-twitter-square"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="monitor.html">Surveillance</a></li>
+                        <li><a href="analysis.html">Analysis Tool</a></li>
+                        <li><a href="about.html">Our Team</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <p><i class="fas fa-envelope"></i> support@tissite.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> UIU, Madani Avenue, Dhaka</p>
+                    <div style="margin-top: 20px;">
+                        <h4 style="font-size: 0.9rem;">Subscribe to Newsletter</h4>
+                        <div style="display: flex; margin-top: 10px;">
+                            <input type="text" placeholder="Email" style="padding: 10px; border: none; border-radius: 5px 0 0 5px; outline: none; width: 100%;">
+                            <button style="background: var(--primary-color); border: none; padding: 10px; border-radius: 0 5px 5px 0; color: white;"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Tissite Project. All Rights Reserved. <br> Developed by Team Crop Crusaders</p>
+                <p style="margin-top: 10px; font-style: italic;">Supervised by: Prof. Dr. A.K.M. Muzahidul Islam</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function previewImage(event) {
+            const preview = document.getElementById('imagePreview');
+            preview.src = URL.createObjectURL(event.target.files[0]);
+            preview.style.display = 'block';
+            document.getElementById('resultPanel').style.display = 'none';
+        }
+
+        function runAnalysis() {
+            const preview = document.getElementById('imagePreview');
+            if(preview.style.display === 'none' || !preview.src) {
+                alert("Please select or capture a plant photo first!");
+                return;
+            }
+            
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('resultPanel').style.display = 'none';
+
+            // Simulate AI Prediction Delay
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('resultPanel').style.display = 'block';
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            }, 3000);
+        }
+    </script>
+
+</body>
+</html>

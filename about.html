@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Meet Our Dedicated Team</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* About Us Specific Styling */
+        .about-hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        /* Supervisor Section */
+        .supervisor-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-top: -60px;
+            position: relative;
+            z-index: 10;
+            flex-wrap: wrap;
+        }
+
+        .supervisor-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary-color);
+        }
+
+        /* Team Grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .profile-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-bottom: 4px solid transparent;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-10px);
+            border-bottom: 4px solid var(--primary-color);
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            background: #eee;
+        }
+
+        .profile-info {
+            padding: 25px;
+        }
+
+        .profile-info h3 {
+            color: var(--dark-color);
+            margin-bottom: 5px;
+        }
+
+        .id-badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: var(--secondary-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        .mission-box {
+            background: #f0f7f2;
+            padding: 60px 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        @media (max-width: 768px) {
+            .supervisor-card { flex-direction: column; text-align: center; padding: 30px; }
+            .about-hero { height: 250px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html">
+                    <h2><i class="fas fa-leaf"></i> Tissite</h2>
+                </a>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="monitor.html">Monitoring</a></li>
+                <li><a href="analysis.html">Analysis Tool</a></li>
+                <li><a href="about.html" class="active">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+
+            <div class="auth-buttons">
+                <a href="#" class="btn-login">Login</a>
+                <a href="#" class="btn-signup">Sign Up</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="about-hero">
+        <div class="container">
+            <h1>Meet Our Dedicated Team</h1>
+            <p style="opacity: 0.9; margin-top: 10px;">Our team consists of a group of innovative students from UIU CSE department.</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="supervisor-card">
+            <img src="images/Dr.-A.K.M.-Muzahidul-Islam-240x300.jpg" alt="Supervisor" class="supervisor-img">
+            <div style="flex: 1;">
+                <h2 style="color: var(--dark-color);">Dr. A.K.M. Muzahidul Islam</h2>
+                <p style="color: var(--primary-color); font-weight: 600; margin-bottom: 15px;">Professor, Dept. of CSE & Director, DCCSA</p>
+                <p style="color: #555; line-height: 1.8;">Under the guidance and relentless supervision of A.K.M. Muzahidul Islam Sir of United International University, our "IoT Based Agricultural Renaissance" project is progressing successfully.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container section-padding">
+        <div class="section-title">
+            <h1>Team Members</h1>
+            <div class="underline"></div>
+        </div>
+
+        <div class="team-grid">
+            <div class="profile-card">
+                <img src="images/001 Musa.jpg" class="profile-img">
+                <div class="profile-info">
+                    <h3>Musa Md Obayed</h3>
+                    <p>Student, Department of CSE, UIU</p>
+                    <span class="id-badge">ID: 011 201 170</span>
+                </div>
+            </div>
+
+            <div class="profile-card">
+                <img src="images/002 Sharar Defense.jpg" class="profile-img">
+                <div class="profile-info">
+                    <h3>Ahsan Yasir Sharar</h3>
+                    <p>Student, Department of CSE, UIU</p>
+                    <span class="id-badge">ID: 011 201 446</span>
+                </div>
+            </div>
+
+            <div class="profile-card">
+                <img src="images/003 Rohit FB.jpg" class="profile-img">
+                <div class="profile-info">
+                    <h3>Md. Musfiqur Rahman</h3>
+                    <p>Student, Department of CSE, UIU</p>
+                    <span class="id-badge">ID: 011 201 023</span>
+                </div>
+            </div>
+
+            <div class="profile-card">
+                <img src="images/004 Jafry FB.jpg" class="profile-img">
+                <div class="profile-info">
+                    <h3>Md. Abed Jafry</h3>
+                    <p>Student, Department of CSE, UIU</p>
+                    <span class="id-badge">ID: 011 201 350</span>
+                </div>
+            </div>
+
+            <div class="profile-card">
+                <img src="images/005 Rubel.jpg" class="profile-img">
+                <div class="profile-info">
+                    <h3>Md. Aminul Islam</h3>
+                    <p>Student, Department of CSE, UIU</p>
+                    <span class="id-badge">ID: 011 182 037</span>
+                </div>
+            </div>
+
+            <div class="profile-card">
+                <img src="images/006 Canon Defense.jpg" class="profile-img">
+                <div class="profile-info">
+                    <h3>Md. Shahria Sarker Canon</h3>
+                    <p>Student, Department of CSE, UIU</p>
+                    <span class="id-badge">ID: 011 172 009</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mission-box">
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;">Our Mission</h2>
+            <p style="max-width: 900px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; color: #444;">Our goal is to create a reliable platform for farmers using cutting-edge technology and IoT, which will ensure food security and sustainable agricultural yields by quickly identifying crop diseases.</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h3>Tissite</h3>
+                    <p>We help farmers ensure disease-free and improved yields by using cutting-edge technology.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="monitor.html">Monitoring</a></li>
+                        <li><a href="analysis.html">Analysis Tool</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Get In Touch</h4>
+                    <ul>
+                        <li><i class="fas fa-university"></i> UIU, Dhaka, Bangladesh</li>
+                        <li><i class="fas fa-envelope"></i> info@cropcrusaders.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Tissite Project | Developed by Team Crop Crusaders</p>
+                <p><small>Supervisor: Prof. Dr. A.K.M. Muzahidul Islam</small></p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
